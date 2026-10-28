@@ -1,0 +1,29 @@
+# Copy to config/alessa.yaml and fill in the placeholders. config/alessa.yaml is gitignored.
+# base_url can also be set with ALESSA_BASE_URL in .env (that overrides this file).
+base_url: https://<alessa-host>
+timeout_ms: 30000
+pause_between_calls_ms: 150
+
+session:
+  profile_dir: .alessa-profile        # keeps the signed-in session; never commit
+  browser_channel: msedge             # use the installed Edge; remove to use bundled Chromium
+  ready_selector: "text=Work Items"
+  sign_in_timeout_s: 300
+  headless: false
+
+result_set:                           # Entity 360 Master result set (from the Alessa grid request)
+  result_set_id: 0                    # fill in
+  process_id: 0                       # fill in
+  table_name: "<result-set-table>"    # fill in
+
+selection:
+  workflow_states: [Assigned]         # the state/queue that holds items for AI triage
+  assigned_to: []                     # e.g. the user/queue that holds them; empty = any
+  modules: [TM Alerts]
+  max_items: 5
+
+case:
+  transaction_lookback_days: 365      # the analysts' review window (confirm from the SOPs)
+  include: [accounts, regulatory_reports, risk_scores, entity_resolution, profile]
+
+output_dir: data/alessa               # cases go to data/alessa/cases (UNMASKED – keep internal)

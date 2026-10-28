@@ -1,0 +1,13 @@
+# Fields masked before any AI call. Matched case-insensitively on the JSON field name (regex).
+# TODO: confirm against the approved PII field list.
+categories:
+  PERSON:  ['^name$', 'entity_?name$', 'customer_?name', 'beneficiary', 'originator', 'counterparty', 'performed_?by', 'assign_?to$', 'assigned_?to$']
+  ADDRESS: ['address', '^city$', 'postal', 'zip']
+  PHONE:   ['phone', 'mobile', 'fax']
+  EMAIL:   ['email']
+  ID:      ['identification_?value', '^dob$', 'birth', 'sin$', 'passport', 'licen[cs]e', '(primary|secondary)_?entity_?id$']
+  ACCOUNT: ['account_?(id|number|no)$', '(primary|secondary)_?account']
+# Never masked, even if a pattern above matches (needed for the analysis, not personal).
+exclude:   ['institution', 'country', 'currency', 'type$', 'method$', 'status$']
+# Free-text fields also get Azure AI Language PII detection (once access is in place).
+free_text: ['comment', 'description', 'manual_comments', 'predefined_comments']
